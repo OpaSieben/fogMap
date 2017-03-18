@@ -27,13 +27,18 @@ namespace fogMap
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            canvas.Width = e.NewSize.Width;
-            canvas.Height = e.NewSize.Height;
+            canvasFog.Width = e.NewSize.Width;
+            canvasFog.Height = e.NewSize.Height;
         }
 
         private void Init_Canvas()
         {
+            
+        }
 
+        private void canvasMap_Drop(object sender, DragEventArgs e)
+        {
+            var src = e.Data.GetData(typeof(DataObject));
         }
     }
 }

@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:fogMap"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" SizeChanged="Window_SizeChanged">
-    <Grid>
-        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="321" Margin="0,0,-0.333,-0.333" VerticalAlignment="Top" Width="519" Background="Black" ClipToBounds="True"/>
-
+        Title="MainWindow" Height="350" Width="525" SizeChanged="Window_SizeChanged" Drop="canvasMap_Drop" AllowDrop="True">
+    <Grid AllowDrop="True" Drop="canvasMap_Drop">
+        <Image Source="resources/mapicon.png" AllowDrop="true" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60"/>
+        <Image x:Name="imageMap" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Top" Height="321" Width="519" Margin="0,0,-0.333,-0.333"/>
+        <Canvas x:Name="canvasFog" HorizontalAlignment="Left" AllowDrop="True" Height="321" Margin="0,0,-0.333,-0.333" VerticalAlignment="Top" Width="519" ClipToBounds="True">
+            <Canvas Height="321" Width="519" Visibility="Hidden" AllowDrop="True"/>
+        </Canvas>
     </Grid>
 </Window>
