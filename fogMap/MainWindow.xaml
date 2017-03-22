@@ -4,12 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" SizeChanged="Window_SizeChanged" Drop="canvasMap_Drop" AllowDrop="True">
-    <Grid AllowDrop="True" Drop="canvasMap_Drop">
-        <Image Source="resources/mapicon.png" AllowDrop="true" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60"/>
-        <Image x:Name="imageMap" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Top" Height="321" Width="519" Margin="0,0,-0.333,-0.333"/>
-        <Canvas x:Name="canvasFog" HorizontalAlignment="Left" AllowDrop="True" Height="321" Margin="0,0,-0.333,-0.333" VerticalAlignment="Top" Width="519" ClipToBounds="True">
-            <Canvas Height="321" Width="519" Visibility="Hidden" AllowDrop="True"/>
-        </Canvas>
-    </Grid>
+        Title="MainWindow" Height="350" Width="525" Drop="canvasMap_Drop" AllowDrop="True" MouseMove="Window_MouseMove" MouseWheel="Window_MouseWheel">
+  <Grid AllowDrop="True" Drop="canvasMap_Drop">
+    <Image Source="resources/mapicon.png" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+    <Image x:Name="imageMap" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+    <Image x:Name="imageFog" Source="resources/fog.jpg" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Visibility="Hidden">
+      <Image.OpacityMask>
+        <RadialGradientBrush  x:Name="imageFogCircle" RadiusX="50" RadiusY="50" Center="259,172.5" GradientOrigin="259,172.5" MappingMode="Absolute">
+          <GradientStop Color="#00000000" Offset="0.253"/>
+          <GradientStop Color="#E5FFFFFF" Offset="0.717"/>
+          <GradientStop Color="White" Offset="1"/>
+        </RadialGradientBrush>
+      </Image.OpacityMask>
+    </Image>
+    <Button x:Name="fogButton" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="50" Height="50" Click="fogButton_Click" Foreground="Black" UseLayoutRounding="True" BorderThickness="2" BorderBrush="Black">
+      <Button.Background>
+        <ImageBrush ImageSource="resources/torch.png" Stretch="Uniform">
+          <ImageBrush.RelativeTransform>
+            <TransformGroup>
+              <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.9" ScaleX="0.9"/>
+              <SkewTransform CenterY="0.5" CenterX="0.5"/>
+              <RotateTransform CenterY="0.5" CenterX="0.5"/>
+              <TranslateTransform/>
+            </TransformGroup>
+          </ImageBrush.RelativeTransform>
+        </ImageBrush>
+      </Button.Background>
+    </Button>
+  </Grid>
 </Window>

@@ -20,25 +20,81 @@ namespace fogMap
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int circleMaxSize = 215;
+        private int circleMinSize = 31;
+        private int step = 10;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void canvasMap_Drop(object sender, DragEventArgs e)
         {
-            canvasFog.Width = e.NewSize.Width;
-            canvasFog.Height = e.NewSize.Height;
+             if (e.Data.GetDataPresent(DataFormats.FileDrop))
+              {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);     
+                imageMap.Source = new BitmapImage(new Uri(files[0]));
+                ShowFog();
+              }
         }
 
-        private void Init_Canvas()
+        private void Window_MouseMove(object sender, MouseEventArgs e)
         {
+            CenterCanvasCircle();
+        }
+
+        private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+
+            if (e.Delta > 0 && imageFogCircle.RadiusX + step < circleMaxSize)
+                IncreaseCanvasCircleSize();
+            else if (e.Delta < 0 && imageFogCircle.RadiusY + step > circleMinSize)
+                DecreaseCanvasCircleSize();
+
+            CenterCanvasCircle();
+        }
+
+
+
+        private void CenterCanvasCircle()
+        {
+            var pos = Mouse.GetPosition(imageFog);
+            imageFogCircle.Center = imageFogCircle.GradientOrigin = pos;
+        }
+
+        private void ToggleFogVisibility()
+        {
+            if(imageFog.Visibility == Visibility.Visible)
+                HideFog();
+             else
+                ShowFog();
             
         }
 
-        private void canvasMap_Drop(object sender, DragEventArgs e)
+        private void ShowFog()
         {
-            var src = e.Data.GetData(typeof(DataObject));
+            imageFog.Visibility = Visibility.Visible;
+        }
+
+        private void HideFog()
+        {
+            imageFog.Visibility = Visibility.Hidden;
+        }
+
+        private void IncreaseCanvasCircleSize()
+        {
+            imageFogCircle.RadiusX = imageFogCircle.RadiusY += step;
+        }
+
+        private void DecreaseCanvasCircleSize()
+        {
+           imageFogCircle.RadiusX = imageFogCircle.RadiusY -= step;
+        }
+
+        private void fogButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleFogVisibility();
         }
     }
 }
