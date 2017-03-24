@@ -4,20 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Drop="canvasMap_Drop" AllowDrop="True" MouseMove="Window_MouseMove" MouseWheel="Window_MouseWheel">
+        Title="MainWindow" Height="350" Width="525" Drop="canvasMap_Drop" AllowDrop="True" MouseMove="Window_MouseMove" MouseWheel="Window_MouseWheel" KeyDown="Window_KeyDown">
   <Grid AllowDrop="True" Drop="canvasMap_Drop">
-    <Image Source="resources/mapicon.png" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+    <Image Source="resources/mapicon.png" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70"/>
     <Image x:Name="imageMap" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
     <Image x:Name="imageFog" Source="resources/fog.jpg" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Visibility="Hidden">
       <Image.OpacityMask>
         <RadialGradientBrush  x:Name="imageFogCircle" RadiusX="50" RadiusY="50" Center="259,172.5" GradientOrigin="259,172.5" MappingMode="Absolute">
-          <GradientStop Color="#00000000" Offset="0.253"/>
-          <GradientStop Color="#E5FFFFFF" Offset="0.717"/>
+          <GradientStop Color="#00000000"/>
           <GradientStop Color="White" Offset="1"/>
-        </RadialGradientBrush>
+                </RadialGradientBrush>
       </Image.OpacityMask>
     </Image>
-    <Button x:Name="fogButton" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="50" Height="50" Click="fogButton_Click" Foreground="Black" UseLayoutRounding="True" BorderThickness="2" BorderBrush="Black">
+    <Button x:Name="fogButton" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="50" Height="50" Click="fogButton_Click" Foreground="Black" UseLayoutRounding="False" BorderThickness="1,1,2,2" BorderBrush="Gray" Padding="1">
       <Button.Background>
         <ImageBrush ImageSource="resources/torch.png" Stretch="Uniform">
           <ImageBrush.RelativeTransform>

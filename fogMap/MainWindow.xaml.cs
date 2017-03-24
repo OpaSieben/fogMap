@@ -47,9 +47,9 @@ namespace fogMap
         private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
         {
 
-            if (e.Delta > 0 && imageFogCircle.RadiusX + step < circleMaxSize)
+            if (e.Delta > 0)
                 IncreaseCanvasCircleSize();
-            else if (e.Delta < 0 && imageFogCircle.RadiusY + step > circleMinSize)
+            else if (e.Delta < 0)
                 DecreaseCanvasCircleSize();
 
             CenterCanvasCircle();
@@ -84,17 +84,37 @@ namespace fogMap
 
         private void IncreaseCanvasCircleSize()
         {
+            if(imageFogCircle.RadiusX + step < circleMaxSize)
             imageFogCircle.RadiusX = imageFogCircle.RadiusY += step;
         }
 
         private void DecreaseCanvasCircleSize()
         {
+            if(imageFogCircle.RadiusY + step > circleMinSize)
            imageFogCircle.RadiusX = imageFogCircle.RadiusY -= step;
         }
 
         private void fogButton_Click(object sender, RoutedEventArgs e)
         {
             ToggleFogVisibility();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.OemPlus || e.Key == Key.Add)
+            {
+                IncreaseCanvasCircleSize();
+                return;
+            }
+
+
+            if (e.Key == Key.OemMinus || e.Key == Key.Subtract)
+            {
+                DecreaseCanvasCircleSize();
+                return;
+            }
+               
+
         }
     }
 }
