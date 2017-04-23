@@ -20,9 +20,10 @@ namespace fogMap
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int circleMaxSize = 215;
-        private int circleMinSize = 31;
-        private int step = 10;
+        private const int CircleMaxSize = 215;
+        private const int CircleMinSize = 31;
+        private const int Step = 10;
+        private bool _circleMovable = false;
 
         public MainWindow()
         {
@@ -31,22 +32,20 @@ namespace fogMap
 
         private void canvasMap_Drop(object sender, DragEventArgs e)
         {
-             if (e.Data.GetDataPresent(DataFormats.FileDrop))
-              {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);     
-                imageMap.Source = new BitmapImage(new Uri(files[0]));
-                ShowFog();
-              }
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            if (files != null) imageMap.Source = new BitmapImage(new Uri(files[0]));
+            ShowFog();
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
-            CenterCanvasCircle();
+            if (_circleMovable)
+                CenterCanvasCircle();
         }
 
         private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-
             if (e.Delta > 0)
                 IncreaseCanvasCircleSize();
             else if (e.Delta < 0)
@@ -54,7 +53,6 @@ namespace fogMap
 
             CenterCanvasCircle();
         }
-
 
 
         private void CenterCanvasCircle()
@@ -65,11 +63,10 @@ namespace fogMap
 
         private void ToggleFogVisibility()
         {
-            if(imageFog.Visibility == Visibility.Visible)
+            if (imageFog.Visibility == Visibility.Visible)
                 HideFog();
-             else
+            else
                 ShowFog();
-            
         }
 
         private void ShowFog()
@@ -84,14 +81,14 @@ namespace fogMap
 
         private void IncreaseCanvasCircleSize()
         {
-            if(imageFogCircle.RadiusX + step < circleMaxSize)
-            imageFogCircle.RadiusX = imageFogCircle.RadiusY += step;
+            if (imageFogCircle.RadiusX + Step < CircleMaxSize)
+                imageFogCircle.RadiusX = imageFogCircle.RadiusY += Step;
         }
 
         private void DecreaseCanvasCircleSize()
         {
-            if(imageFogCircle.RadiusY + step > circleMinSize)
-           imageFogCircle.RadiusX = imageFogCircle.RadiusY -= step;
+            if (imageFogCircle.RadiusY + Step > CircleMinSize)
+                imageFogCircle.RadiusX = imageFogCircle.RadiusY -= Step;
         }
 
         private void fogButton_Click(object sender, RoutedEventArgs e)
@@ -101,20 +98,26 @@ namespace fogMap
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.OemPlus || e.Key == Key.Add)
+            if (e.Key == Key.OemPlus || e.Key == Key.Add)
             {
                 IncreaseCanvasCircleSize();
-                return;
             }
 
 
             if (e.Key == Key.OemMinus || e.Key == Key.Subtract)
             {
                 DecreaseCanvasCircleSize();
-                return;
             }
-               
+        }
 
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _circleMovable = true;
+        }
+
+        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _circleMovable = false;
         }
     }
 }

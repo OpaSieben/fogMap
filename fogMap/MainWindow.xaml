@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Drop="canvasMap_Drop" AllowDrop="True" MouseMove="Window_MouseMove" MouseWheel="Window_MouseWheel" KeyDown="Window_KeyDown">
+        Title="MainWindow" Height="350" Width="525" Drop="canvasMap_Drop" AllowDrop="True" MouseMove="Window_MouseMove" MouseWheel="Window_MouseWheel" KeyDown="Window_KeyDown" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp">
   <Grid AllowDrop="True" Drop="canvasMap_Drop">
     <Image Source="resources/mapicon.png" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70"/>
     <Image x:Name="imageMap" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
